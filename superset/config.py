@@ -1326,6 +1326,13 @@ DISALLOWED_SQL_FUNCTIONS: dict[str, set[str]] = {
     "mysql": {"version"},
 }
 
+# Controls whether label mutation is enabled for the clickhouseconnect engine.
+# When enabled (True), query labels generated for ClickHouse will have the first
+# 6 characters of the md5 hash appended to prevent potential name collisions.
+# Disable (False) if using ClickHouse queries where label mutation can break
+# aliases in SELECT/GROUP BY/ORDER BY (such as when referencing the same alias
+# multiple times).
+CLICKHOUSE_CONNECT_ENABLE_LABEL_MUTATION = True  # Set to False to disable label mutation
 
 # A function that intercepts the SQL to be executed and can alter it.
 # A common use case for this is around adding some sort of comment header to the SQL
